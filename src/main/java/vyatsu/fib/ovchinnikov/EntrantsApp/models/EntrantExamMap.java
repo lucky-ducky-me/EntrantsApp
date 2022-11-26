@@ -14,21 +14,21 @@ public class EntrantExamMap {
     /**
      * Id связи.
      */
-    @Getter(AccessLevel.PRIVATE)
+    @Getter(AccessLevel.PUBLIC)
     @Setter(AccessLevel.PRIVATE)
     private UUID entrantExamId;
 
     /**
      * Id абитуриента.
      */
-    @Getter(AccessLevel.PRIVATE)
+    @Getter(AccessLevel.PUBLIC)
     @Setter(AccessLevel.PRIVATE)
     private UUID entrantId;
 
     /**
      * Id экзамена.
      */
-    @Getter(AccessLevel.PRIVATE)
+    @Getter(AccessLevel.PUBLIC)
     @Setter(AccessLevel.PRIVATE)
     private UUID examId;
 
