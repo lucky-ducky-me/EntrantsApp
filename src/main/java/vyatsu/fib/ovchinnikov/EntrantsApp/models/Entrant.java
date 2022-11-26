@@ -4,8 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 /**
@@ -109,7 +109,7 @@ public class Entrant {
      * @return строка с датой.
      */
     public String getBirthdayString() {
-        var dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        var dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
         return dateFormat.format(getBirthday());
     }
