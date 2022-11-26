@@ -1,4 +1,4 @@
-package vyatsu.fib.ovchinnikov.Lab6;
+package vyatsu.fib.ovchinnikov.EntrantsApp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

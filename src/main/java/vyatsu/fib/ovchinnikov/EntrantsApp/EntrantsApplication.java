@@ -1,4 +1,4 @@
-package vyatsu.fib.ovchinnikov.Lab6;
+package vyatsu.fib.ovchinnikov.EntrantsApp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
