@@ -9,7 +9,6 @@ import java.util.UUID;
 
 /**
  * Провайдер для таблицы с абитуриентами.
- * (Имитация).
  */
 public class EntrantProvider implements IDataBaseProvider<Entrant> {
 
