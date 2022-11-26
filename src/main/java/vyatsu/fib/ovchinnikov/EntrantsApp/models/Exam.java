@@ -14,6 +14,13 @@ public class Exam {
     //region Поля.
 
     /**
+     * Id.
+     */
+    @Getter(AccessLevel.PUBLIC)
+    @Setter(AccessLevel.PUBLIC)
+    private UUID id;
+
+    /**
      * Предмет.
      */
     @Getter(AccessLevel.PUBLIC)
@@ -25,13 +32,6 @@ public class Exam {
     @Getter(AccessLevel.PUBLIC)
     private Integer score;
 
-    /**
-     * Id абитуриента.
-     */
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PUBLIC)
-    private UUID entrantId;
-
     //endregion
 
     //region Конструкторы.
@@ -40,12 +40,11 @@ public class Exam {
      * Создание экзамена с указанными параметрами.
      * @param subject предмет.
      * @param score количество предметов.
-     * @param entrantId id абитуриента.
      */
-    public Exam(String subject, Integer score, UUID entrantId) {
+    public Exam(UUID id, String subject, Integer score) {
+        setId(id);
         setSubject(subject);
         setScore(score);
-        setEntrantId(entrantId);
     }
 
     //endregion
