@@ -24,7 +24,7 @@ public interface IDataBaseProvider<T> {
 
     /**
      * Сохранение объекта в базу данных.
-     * @param object удаляемый объект.
+     * @param object сохраняемый объект.
      * @return успех сохранения.
      */
     boolean save(T object);
