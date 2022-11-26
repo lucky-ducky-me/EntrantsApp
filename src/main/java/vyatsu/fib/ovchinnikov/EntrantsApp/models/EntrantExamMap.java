@@ -2,9 +2,9 @@ package vyatsu.fib.ovchinnikov.EntrantsApp.models;
 
 import lombok.AccessLevel;
 import lombok.Getter;
-import org.javatuples.Pair;
+import lombok.Setter;
 
-import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Промежуточная связь между абитуриентом и экзаменом.
@@ -12,23 +12,35 @@ import java.util.ArrayList;
 public class EntrantExamMap {
 
     /**
-     * Список связей между абитуриентоми и экзаменоми.
+     * Id связи.
      */
-    @Getter(AccessLevel.PUBLIC)
-    private ArrayList<Pair<Entrant, Exam>> entrantExamMap = new ArrayList<>();
+    @Getter(AccessLevel.PRIVATE)
+    @Setter(AccessLevel.PRIVATE)
+    private UUID entrantExamId;
 
     /**
-     * Добавления связи между абитуриентом и экзаменом.
-     * @param entrantExamPair связь между абитуриентом и экзаменом.
-     * @return успех вставки.
+     * Id абитуриента.
      */
-    public boolean addEntrantExamPair(Pair<Entrant, Exam> entrantExamPair) {
-        if (entrantExamMap.contains(entrantExamPair)) {
-            return false;
-        }
+    @Getter(AccessLevel.PRIVATE)
+    @Setter(AccessLevel.PRIVATE)
+    private UUID entrantId;
 
-        entrantExamMap.add(entrantExamPair);
+    /**
+     * Id экзамена.
+     */
+    @Getter(AccessLevel.PRIVATE)
+    @Setter(AccessLevel.PRIVATE)
+    private UUID examId;
 
-        return entrantExamMap.contains(entrantExamPair);
+    /**
+     * Создание связи с указанными параментарми.
+     * @param id id связи.
+     * @param entrant id абитуриента.
+     * @param exam id экзамена.
+     */
+    public EntrantExamMap(UUID id, Entrant entrant, Exam exam) {
+        setEntrantExamId(id);
+        setEntrantId(entrant.getId());
+        setExamId(exam.getId());
     }
 }
