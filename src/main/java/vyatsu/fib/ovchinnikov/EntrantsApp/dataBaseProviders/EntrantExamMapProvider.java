@@ -36,8 +36,8 @@ public class EntrantExamMapProvider implements IDataBaseProvider<EntrantExamMap>
     }
 
     /**
-     * Получение всех объектов.
-     * @return список объектов.
+     * Получение всех связей.
+     * @return список связей.
      */
     @Override
     public List<EntrantExamMap> getAll() {
