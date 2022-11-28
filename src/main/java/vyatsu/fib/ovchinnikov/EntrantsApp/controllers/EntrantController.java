@@ -4,11 +4,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import vyatsu.fib.ovchinnikov.EntrantsApp.dataBaseProviders.EntrantExamMapProvider;
+import vyatsu.fib.ovchinnikov.EntrantsApp.dataBaseProviders.EntrantProvider;
+import vyatsu.fib.ovchinnikov.EntrantsApp.dataBaseProviders.ExamProvider;
 import vyatsu.fib.ovchinnikov.EntrantsApp.models.Entrant;
+import vyatsu.fib.ovchinnikov.EntrantsApp.models.EntrantExamMap;
 import vyatsu.fib.ovchinnikov.EntrantsApp.models.Exam;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.UUID;
 
 /**
@@ -16,6 +21,21 @@ import java.util.UUID;
  */
 @Controller
 public class EntrantController {
+
+    /**
+     * Провайдер для связей абитурентов и экзаменов.
+     */
+    private final EntrantExamMapProvider entrantExamMapProvider = new EntrantExamMapProvider();
+
+    /**
+     * Провайдер для абитуриентов.
+     */
+    private final EntrantProvider entrantProvider = new EntrantProvider();
+
+    /**
+     * Провайдер для экзаменов.
+     */
+    private final ExamProvider examProvider = new ExamProvider();
 
     /**
      * Получение всех абитуриетов.
@@ -26,8 +46,7 @@ public class EntrantController {
     public String entrants(Model model){
         model.addAttribute("title","Список абитуриентов");
 
-        //todo: получение списка абитуриентов
-        var entrants = new ArrayList<Entrant>();
+        var entrants = entrantProvider.getAll();
 
         model.addAttribute("entrants", entrants);
 
@@ -44,12 +63,23 @@ public class EntrantController {
     public String entrant(@PathVariable UUID id, Model model) {
         model.addAttribute("title","Абитуриент");
 
-        //todo: получение абитуриента по id.
-        var entrant = new Entrant(UUID.randomUUID(), "test", "test", "test", LocalDate.now());
+        var entrant = entrantProvider.get(id);
 
-        model.addAttribute("entrant", entrant);
+        model.addAttribute("entrant"
+                , entrant.orElse(null));
 
-        var exams = new ArrayList<Exam>();
+        ArrayList<Exam> exams = null;
+
+        try {
+            exams = entrantExamMapProvider.getExamsByEntrant(entrant.orElse(null));
+        }
+        catch (NullPointerException ex) {
+            //Логирование ошибки (в данном случае в консоль).
+            System.out.println(Arrays.toString(ex.getStackTrace()));
+        }
+        catch (Exception ex) {
+            System.out.println(Arrays.toString(ex.getStackTrace()));
+        }
 
         model.addAttribute("exams", exams);
 
