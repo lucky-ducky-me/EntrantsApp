@@ -57,21 +57,21 @@ public class EntrantExamMapProvider implements IDataBaseProvider<EntrantExamMap>
 
         if (entrantExamMap.stream()
                 .anyMatch(element ->
-                        element.getExamId().equals(object.getExamId()) &&
-                        element.getEntrantId().equals(object.getEntrantId()))
+                        element.getExam().getId().equals(object.getExam().getId()) &&
+                        element.getEntrant().getId().equals(object.getEntrant().getId()))
         ) {
             throw new RuntimeException(String.format(
                     "Связь с указанным экзаменом (id: %s) и абитуриентом (id: %s) уже существует."
-                    , object.getExamId()
-                    , object.getEntrantId()));
+                    , object.getExam().getId()
+                    , object.getEntrant().getId()));
         }
 
-        if (new ExamProvider().get(object.getExamId()).isEmpty()) {
-            throw new RuntimeException("Экзамена с id: " + object.getExamId() + " не существует.");
+        if (new ExamProvider().get(object.getExam().getId()).isEmpty()) {
+            throw new RuntimeException("Экзамена с id: " + object.getExam().getId() + " не существует.");
         }
 
-        if (new ExamProvider().get(object.getEntrantId()).isEmpty()) {
-            throw new RuntimeException("Абитуриента с id: " + object.getEntrantId() + " не существует.");
+        if (new ExamProvider().get(object.getEntrant().getId()).isEmpty()) {
+            throw new RuntimeException("Абитуриента с id: " + object.getEntrant().getId() + " не существует.");
         }
 
         entrantExamMap.add(object);
@@ -92,13 +92,13 @@ public class EntrantExamMapProvider implements IDataBaseProvider<EntrantExamMap>
 
         if (entrantExamMap.stream()
                 .noneMatch(element ->
-                        element.getExamId().equals(object.getExamId()) &&
-                                element.getEntrantId().equals(object.getEntrantId()))
+                        element.getExam().getId().equals(object.getExam().getId()) &&
+                                element.getEntrant().getId().equals(object.getEntrant().getId()))
         ) {
             throw new RuntimeException(String.format(
                     "Связь с указанным экзаменом (id: %s) и абитуриентом (id: %s) не существует."
-                    , object.getExamId()
-                    , object.getEntrantId()));
+                    , object.getExam().getId()
+                    , object.getEntrant().getId()));
         }
 
         entrantExamMap.remove(object);
@@ -119,8 +119,8 @@ public class EntrantExamMapProvider implements IDataBaseProvider<EntrantExamMap>
         var foundExams = new ArrayList<Exam>();
 
         var foundExamsIds = entrantExamMap.stream()
-                .filter(elem -> elem.getEntrantId().equals(entrant.getId()))
-                .map(EntrantExamMap::getExamId);
+                .filter(elem -> elem.getEntrant().getId().equals(entrant.getId()))
+                .map(elem -> elem.getExam().getId());
 
         var foundExamsOptional = foundExamsIds
                 .map(examId -> new ExamProvider().get(examId))
@@ -147,8 +147,8 @@ public class EntrantExamMapProvider implements IDataBaseProvider<EntrantExamMap>
         var foundEntrants = new ArrayList<Entrant>();
 
         var foundEntrantsIds = entrantExamMap.stream()
-                .filter(elem -> elem.getExamId().equals(exam.getId()))
-                .map(EntrantExamMap::getEntrantId);
+                .filter(elem -> elem.getExam().getId().equals(exam.getId()))
+                .map(elem -> elem.getEntrant().getId());
 
         var foundExamsOptional = foundEntrantsIds
                 .map(entrantId -> new EntrantProvider().get(entrantId))
