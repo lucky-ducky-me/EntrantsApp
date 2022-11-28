@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${title}"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<header th:insert="fragments/header::header"></header>
+<div>
+  <h1>Список экзаменов.</h1>
+  <ul th:each="exam: ${exams}">
+    <li>
+      <a th:text="'ID: ' + ${exam.getId()} + ' '
+                    + 'Предмет: ' + ${exam.getSubject()} "></a>
+    </li>
+  </ul>
+</div>
+<div style="margin: 10px"><a th:href="@{/addExam}">Добавить экзамен</a></div>
+<footer th:insert="fragments/footer::footer"></footer>
+</body>
+</html>
