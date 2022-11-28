@@ -15,7 +15,7 @@ public class EntrantProvider implements IDataBaseProvider<Entrant> {
     /**
      * Список абитуриентов.
      */
-    private ArrayList<Entrant> entrants = new ArrayList<>();
+    private final ArrayList<Entrant> entrants = new ArrayList<>();
 
     /**
      * Получение абитуриента.
@@ -68,5 +68,13 @@ public class EntrantProvider implements IDataBaseProvider<Entrant> {
         entrants.remove(object);
 
         return !entrants.contains(object);
+    }
+
+    /**
+     * Получение количества абитурентов.
+     * @return количество абитуриентов.
+     */
+    public Integer getEntrantsAmount() {
+        return entrants.size();
     }
 }
