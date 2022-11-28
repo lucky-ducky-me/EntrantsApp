@@ -28,14 +28,14 @@ public class EntrantExamMap {
      * Экзамен.
      */
     @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PRIVATE)
+    @Setter(AccessLevel.PUBLIC)
     private Exam exam;
 
     /**
      * Абитуриент.
      */
     @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PRIVATE)
+    @Setter(AccessLevel.PUBLIC)
     private Entrant entrant;
 
     /**
