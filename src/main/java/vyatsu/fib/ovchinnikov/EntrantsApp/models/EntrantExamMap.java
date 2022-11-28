@@ -19,24 +19,24 @@ public class EntrantExamMap {
     private UUID entrantExamId;
 
     /**
-     * Id абитуриента.
-     */
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PRIVATE)
-    private UUID entrantId;
-
-    /**
-     * Id экзамена.
-     */
-    @Getter(AccessLevel.PUBLIC)
-    @Setter(AccessLevel.PRIVATE)
-    private UUID examId;
-
-    /**
      * Количесто баллов за экзамен.
      */
     @Getter(AccessLevel.PUBLIC)
     private Integer examScore;
+
+    /**
+     * Экзамен.
+     */
+    @Getter(AccessLevel.PUBLIC)
+    @Setter(AccessLevel.PRIVATE)
+    private Exam exam;
+
+    /**
+     * Абитуриент.
+     */
+    @Getter(AccessLevel.PUBLIC)
+    @Setter(AccessLevel.PRIVATE)
+    private Entrant entrant;
 
     /**
      * Создание связи с параментарми по умолчанию.
@@ -54,8 +54,9 @@ public class EntrantExamMap {
      */
     public EntrantExamMap(UUID id, Entrant entrant, Exam exam, Integer examScore) {
         setEntrantExamId(id);
-        setEntrantId(entrant.getId());
-        setExamId(exam.getId());
+        setEntrant(entrant);
+        setExam(exam);
+        setExamScore(examScore);
     }
 
     public void setExamScore(Integer examScore) {
