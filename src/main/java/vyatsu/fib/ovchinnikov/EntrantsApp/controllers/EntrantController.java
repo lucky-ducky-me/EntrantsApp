@@ -1,5 +1,6 @@
 package vyatsu.fib.ovchinnikov.EntrantsApp.controllers;
 
+import org.javatuples.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import vyatsu.fib.ovchinnikov.EntrantsApp.dataBaseProviders.EntrantExamMapProvider;
 import vyatsu.fib.ovchinnikov.EntrantsApp.dataBaseProviders.EntrantProvider;
 import vyatsu.fib.ovchinnikov.EntrantsApp.dataBaseProviders.ExamProvider;
-import vyatsu.fib.ovchinnikov.EntrantsApp.models.Entrant;
-import vyatsu.fib.ovchinnikov.EntrantsApp.models.EntrantExamMap;
-import vyatsu.fib.ovchinnikov.EntrantsApp.models.Exam;
+import vyatsu.fib.ovchinnikov.EntrantsApp.models.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -101,9 +100,23 @@ public class EntrantController {
 
         var entrant = new Entrant();
 
+        var exams = new ArrayList<Exam>();
+
+        exams.add(new Exam());
+        exams.add(new Exam());
+        exams.add(new Exam());
+
+        var scores = new ArrayList<Score>();
+
+        scores.add(new Score());
+        scores.add(new Score());
+        scores.add(new Score());
+
         model.addAttribute("entrant", entrant);
 
-        model.addAttribute("id",  entrant.getId());
+        model.addAttribute("exams", new ExamCreationDto(exams));
+
+        model.addAttribute("scores", new ScoreCreationDto(scores));
 
         return "addEntrant";
     }
@@ -115,7 +128,10 @@ public class EntrantController {
      * @return название html страницы.
      */
     @PostMapping("/addEntrant")
-    public String addingEntrant(@ModelAttribute Entrant entrant, Model model) {
+    public String addingEntrant(@ModelAttribute Entrant entrant
+            , @ModelAttribute ExamCreationDto exams
+            , @ModelAttribute ScoreCreationDto scores
+            , Model model) {
         model.addAttribute("entrant", entrant);
 
         try {
@@ -124,6 +140,52 @@ public class EntrantController {
             if (!savingStatus) {
                 throw new Exception("Возникли ошибки при добавлении абитуриента в базу данных.");
             }
+
+            var examFounded = examProvider.getBySubject(exams.getExams().get(0).getSubject().toLowerCase());
+
+            if (examFounded.isEmpty()) {
+                examProvider.save(exams.getExams().get(0));
+            }
+            else {
+                exams.getExams().set(0, examFounded.get());
+            }
+
+            examFounded = examProvider.getBySubject(exams.getExams().get(1).getSubject().toLowerCase());
+
+            if (examFounded.isEmpty()) {
+                examProvider.save(exams.getExams().get(1));
+            }
+            else {
+                exams.getExams().set(1, examFounded.get());
+            }
+
+            examFounded = examProvider.getBySubject(exams.getExams().get(2).getSubject().toLowerCase());
+
+            if (examFounded.isEmpty()) {
+                examProvider.save(exams.getExams().get(2));
+            }
+            else {
+                exams.getExams().set(2, examFounded.get());
+            }
+
+            entrantExamMapProvider.save(
+                    new EntrantExamMap(UUID.randomUUID()
+                        , entrant
+                        , exams.getExams().get(0)
+                        , scores.getScores().get(0).getScoreInt()));
+
+            entrantExamMapProvider.save(
+                    new EntrantExamMap(UUID.randomUUID()
+                            , entrant
+                            , exams.getExams().get(1)
+                            , scores.getScores().get(1).getScoreInt()));
+
+            entrantExamMapProvider.save(
+                    new EntrantExamMap(UUID.randomUUID()
+                            , entrant
+                            , exams.getExams().get(2)
+                            , scores.getScores().get(2).getScoreInt()));
+
         }
         catch (Exception ex) {
             System.out.println(Arrays.toString(ex.getStackTrace()));
