@@ -38,6 +38,9 @@ public class EntrantExamMap {
     @Getter(AccessLevel.PUBLIC)
     private Integer examScore;
 
+    /**
+     * Создание связи с параментарми по умолчанию.
+     */
     public EntrantExamMap() {
         setEntrantExamId(UUID.randomUUID());
     }
