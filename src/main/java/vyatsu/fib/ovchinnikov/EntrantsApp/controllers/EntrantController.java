@@ -103,7 +103,7 @@ public class EntrantController {
 
         model.addAttribute("entrant", entrant);
 
-        model.addAttribute("amount",  entrantProvider.getEntrantsAmount());
+        model.addAttribute("id",  entrant.getId());
 
         return "addEntrant";
     }
