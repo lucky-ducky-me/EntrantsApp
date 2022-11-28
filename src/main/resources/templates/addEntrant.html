@@ -9,23 +9,23 @@
 <header th:insert="fragments/header::header"></header>
 
 <form action="#" th:action="@{/addEntrant}" method="post">
-  <p th:text="'Id: '+ ${entrant.id}"/>
-  <p>Имя: <input type="text" th:field="*{entrant.name}" /></p>
-  <p>Фамилия: <input type="text" th:field="*{entrant.surname}" /></p>
-  <p>Отчество: <input type="text" th:field="*{entrant.patronymic}" /></p>
-  <p>Дата рождения: <input type="date" th:field="*{entrant.birthday}" /></p>
-  <fieldset th:object="${exams}">
-      <thead>
+    <p th:text="'Id: '+ ${entrant.id}"/>
+    <p>Имя: <input type="text" th:field="*{entrant.name}" /></p>
+    <p>Фамилия: <input type="text" th:field="*{entrant.surname}" /></p>
+    <p>Отчество: <input type="text" th:field="*{entrant.patronymic}" /></p>
+    <p>Дата рождения: <input type="date" th:field="*{entrant.birthday}" /></p>
+    <fieldset th:object="${exams}">
+        <thead>
           <tr>
               <th>Экзамены: </th>
           </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
           <tr th:each="exam, itemStat : *{exams}">
               <td><input type="text" th:field="*{exams[__${itemStat.index}__].subject}"/></td>
           </tr>
-      </tbody>
-  </fieldset>
+        </tbody>
+    </fieldset>
 
     <fieldset th:object="${scores}">
         <thead>
