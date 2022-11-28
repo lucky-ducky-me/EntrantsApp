@@ -60,7 +60,9 @@ public class Entrant {
     /**
      * Создание абитуриента с параметрами по умолчанию.
      */
-    public Entrant() {}
+    public Entrant() {
+        setId(UUID.randomUUID());
+    }
 
     /**
      * Создание абитуриента с указанными параметрами.
