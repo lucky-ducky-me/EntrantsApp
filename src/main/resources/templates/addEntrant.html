@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+  <header th:insert="fragments/header::header"></header>
+
+  <form action="#" th:action="@{/addEntrant}" method="post">
+      <p th:text="'Id: '+ ${id}"/>
+      <p>Имя: <input type="text" th:field="*{entrant.name}" /></p>
+      <p>Фамилия: <input type="text" th:field="*{entrant.surname}" /></p>
+      <p>Отчество: <input type="text" th:field="*{entrant.patronymic}" /></p>
+      <p>Дата рождения: <input type="date" th:field="*{entrant.birthday}" /></p>
+      <div th:each="exam: ${exams}">
+          <p>"Экзамен": <input type="text" th:field="*{exam.subject}" /></p>
+          <p>"Количество баллов": <input type="number" th:field="*{exam.score}" /></p>
+      </div>
+
+<!--      <p>"Экзамен": <input type="text" th:g="*{exams.get(0).subject}" /></p>-->
+<!--      <p>"Количество баллов": <input type="number" th:field="*{exams.get(0).score}" /></p>-->
+<!--      <p>"Экзамен": <input type="text" th:field="*{exams.get(1).subject}" /></p>-->
+<!--      <p>"Количество баллов": <input type="number" th:field="*{exams.get(1).score}" /></p>-->
+<!--      <p>"Экзамен": <input type="text" th:field="*{exams.get(2).subject}" /></p>-->
+<!--      <p>"Количество баллов": <input type="number" th:field="*{exams.get(2).score}" /></p>-->
+      <p><input type="submit" value="Submit" /> <input type="reset" value="Reset"/></p>
+  </form>
+
+  <footer th:insert="fragments/footer::footer"></footer>
+</body>
+</html>
