@@ -15,7 +15,7 @@ public class EntrantProvider implements IDataBaseProvider<Entrant> {
     /**
      * Список абитуриентов.
      */
-    private final ArrayList<Entrant> entrants = new ArrayList<>();
+    static private final ArrayList<Entrant> entrants = new ArrayList<>();
 
     /**
      * Получение абитуриента.

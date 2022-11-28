@@ -21,7 +21,7 @@ public class EntrantExamMapProvider implements IDataBaseProvider<EntrantExamMap>
      * Список связей между абитуриентоми и экзаменоми.
      */
     @Getter(AccessLevel.PUBLIC)
-    private final ArrayList<EntrantExamMap> entrantExamMap = new ArrayList<>();
+    static private final ArrayList<EntrantExamMap> entrantExamMap = new ArrayList<>();
 
     /**
      * Получение связи.
@@ -70,7 +70,7 @@ public class EntrantExamMapProvider implements IDataBaseProvider<EntrantExamMap>
             throw new RuntimeException("Экзамена с id: " + object.getExam().getId() + " не существует.");
         }
 
-        if (new ExamProvider().get(object.getEntrant().getId()).isEmpty()) {
+        if (new EntrantProvider().get(object.getEntrant().getId()).isEmpty()) {
             throw new RuntimeException("Абитуриента с id: " + object.getEntrant().getId() + " не существует.");
         }
 

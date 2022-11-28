@@ -15,7 +15,7 @@ public class ExamProvider implements IDataBaseProvider<Exam> {
     /**
      * Список экзаменов.
      */
-    private ArrayList<Exam> exams = new ArrayList<>();
+    static private final ArrayList<Exam> exams = new ArrayList<>();
 
     /**
      * Получение экзамена.
