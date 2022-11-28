@@ -2,6 +2,7 @@ package vyatsu.fib.ovchinnikov.EntrantsApp.models;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.UUID;
@@ -18,18 +19,21 @@ public class Exam {
      */
     @Getter(AccessLevel.PUBLIC)
     @Setter(AccessLevel.PUBLIC)
+    @NonNull
     private UUID id;
 
     /**
      * Предмет.
      */
     @Getter(AccessLevel.PUBLIC)
+    @NonNull
     private String subject;
 
     /**
      * Количество баллов.
      */
     @Getter(AccessLevel.PUBLIC)
+    @NonNull
     private Integer score;
 
     //endregion
