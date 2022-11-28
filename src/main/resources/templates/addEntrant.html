@@ -7,7 +7,6 @@
 </head>
 <body>
 <header th:insert="fragments/header::header"></header>
-
 <form action="#" th:action="@{/addEntrant}" method="post">
     <p th:text="'Id: '+ ${entrant.id}"/>
     <p>Имя: <input type="text" th:field="*{entrant.name}" /></p>
@@ -26,7 +25,6 @@
           </tr>
         </tbody>
     </fieldset>
-
     <fieldset th:object="${scores}">
         <thead>
         <tr>
@@ -41,9 +39,6 @@
     </fieldset>
   <p><input type="submit" value="Submit" /> <input type="reset" value="Reset"/></p>
 </form>
-
-
-
 <footer th:insert="fragments/footer::footer"></footer>
 </body>
 </html>
