@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${title}"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<header th:insert="fragments/header::header"></header>
+
+<form action="#" th:action="@{/addEntrant}" method="post">
+  <p th:text="'Id: '+ ${entrant.id}"/>
+  <p>Имя: <input type="text" th:field="*{entrant.name}" /></p>
+  <p>Фамилия: <input type="text" th:field="*{entrant.surname}" /></p>
+  <p>Отчество: <input type="text" th:field="*{entrant.patronymic}" /></p>
+  <p>Дата рождения: <input type="date" th:field="*{entrant.birthday}" /></p>
+  <fieldset th:object="${exams}">
+      <thead>
+          <tr>
+              <th>Экзамены: </th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr th:each="exam, itemStat : *{exams}">
+              <td><input type="text" th:field="*{exams[__${itemStat.index}__].subject}"/></td>
+          </tr>
+      </tbody>
+  </fieldset>
+
+    <fieldset th:object="${scores}">
+        <thead>
+        <tr>
+            <th>Баллы: </th>
+        </tr>
+        </thead>
+        <tbody >
+            <tr th:each="score, itemStat : *{scores}">
+                <td><input type="text" th:field="*{scores[__${itemStat.index}__].scoreInt}"/></td>
+            </tr>
+        </tbody>
+    </fieldset>
+  <p><input type="submit" value="Submit" /> <input type="reset" value="Reset"/></p>
+</form>
+
+
+
+<footer th:insert="fragments/footer::footer"></footer>
+</body>
+</html>

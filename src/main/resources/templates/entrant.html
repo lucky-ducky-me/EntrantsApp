@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <header th:insert="fragments/header::header"></header>
+
+    <h1>Абитуриент.</h1>
+    <p th:text="'Id:' + ${entrant.getId()}"></p>
+    <p th:text="'Имя:' + ${entrant.getName()}"></p>
+    <p th:text="'Фамилия:' + ${entrant.getSurname()}"></p>
+    <p th:text="'Отчество:' + ${entrant.getPatronymic()}"></p>
+    <p th:text="'Дата рождения: ' + ${entrant.getBirthdayString()}"></p>
+
+    <table th:if="${exams} != null">
+        <tr>
+            <th>Экзамен</th>
+            <th>Бал</th>
+            <th>Проход</th>
+        </tr>
+        <tr th:each="exam : ${exams}">
+            <td th:text="${exam.getSubject()}"></td>
+            <td th:text="${exam.getScore()}"></td>
+            <td th:text="${exam.getScore() > 80} ? ${'yes'} : ${'no'}"></td>
+        </tr>
+    </table>
+
+    <br>
+
+    <footer th:insert="fragments/footer::footer"></footer>
+
+</body>
+</html>

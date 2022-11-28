@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <header th:insert="fragments/header::header"></header>
+    <div>
+        <h1>Список абитуриентов.</h1>
+        <ul th:each="entrant: ${entrants}">
+            <li>
+                <a th:text="'ID ' + ${entrant.getId()} + ' '
+                    + ' ФИО: ' + ${entrant.getName()} + ' '
+                    + ${entrant.getSurname()} + ' '
+                    + ${entrant.getPatronymic()} "></a>
+            </li>
+        </ul>
+    </div>
+    <div style="margin: 10px"><a th:href="@{/addEntrant}">Добавить абитуриента</a></div>
+    <footer th:insert="fragments/footer::footer"></footer>
+</body>
+</html>
