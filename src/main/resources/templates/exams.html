@@ -11,7 +11,7 @@
   <h1>Список экзаменов.</h1>
   <ul th:each="exam: ${exams}">
     <li>
-      <a th:text="'ID: ' + ${exam.getId()} + '\n'
+      <a th:text="'ID: ' + ${exam.getId()} + '    '
                     + 'Предмет: ' + ${exam.getSubject()} "></a>
     </li>
   </ul>
