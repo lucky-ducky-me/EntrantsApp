@@ -26,7 +26,6 @@ public class Exam {
      * Предмет.
      */
     @Getter(AccessLevel.PUBLIC)
-    @NonNull
     private String subject;
 
     //endregion
@@ -37,6 +36,7 @@ public class Exam {
      * Создание экзамена с параметрами по умолчанию.
      */
     public Exam() {
+        this(UUID.randomUUID(), "");
     }
 
     /**

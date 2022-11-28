@@ -61,7 +61,7 @@ public class Entrant {
      * Создание абитуриента с параметрами по умолчанию.
      */
     public Entrant() {
-        setId(UUID.randomUUID());
+        this(UUID.randomUUID(), "", "", "", LocalDate.now());
     }
 
     /**
