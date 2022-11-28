@@ -1,8 +1,11 @@
 package vyatsu.fib.ovchinnikov.EntrantsApp.models;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,30 +23,35 @@ public class Entrant {
      */
     @Getter(AccessLevel.PUBLIC)
     @Setter(AccessLevel.PUBLIC)
+    @NotNull
     private UUID id;
 
     /**
      * Имя.
      */
     @Getter(AccessLevel.PUBLIC)
+    @Size(min=2, max=30)
     private String name;
 
     /**
      * Фамилия.
      */
     @Getter(AccessLevel.PUBLIC)
+    @Size(min=2, max=30)
     private String surname;
 
     /**
      * Отчество.
      */
     @Getter(AccessLevel.PUBLIC)
+    @Size(min=2, max=30)
     private String patronymic;
 
     /**
      * День рождения.
      */
     @Getter(AccessLevel.PUBLIC)
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate birthday;
 
     //endregion
