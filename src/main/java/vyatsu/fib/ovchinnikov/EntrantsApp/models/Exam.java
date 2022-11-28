@@ -29,13 +29,6 @@ public class Exam {
     @NonNull
     private String subject;
 
-    /**
-     * Количество баллов.
-     */
-    @Getter(AccessLevel.PUBLIC)
-    @NonNull
-    private Integer score;
-
     //endregion
 
     //region Конструкторы.
@@ -43,17 +36,16 @@ public class Exam {
     /**
      * Создание экзамена с параметрами по умолчанию.
      */
-    public Exam() {}
+    public Exam() {
+    }
 
     /**
      * Создание экзамена с указанными параметрами.
      * @param subject предмет.
-     * @param score количество предметов.
      */
-    public Exam(UUID id, String subject, Integer score) {
+    public Exam(UUID id, String subject) {
         setId(id);
         setSubject(subject);
-        setScore(score);
     }
 
     //endregion
@@ -66,14 +58,6 @@ public class Exam {
         }
 
         this.subject = subject;
-    }
-
-    public void setScore(Integer score) {
-        if (score < 0) {
-            throw new IllegalArgumentException("Количество баллов не может быть отрицательным.");
-        }
-
-        this.score = score;
     }
 
     //endregion
