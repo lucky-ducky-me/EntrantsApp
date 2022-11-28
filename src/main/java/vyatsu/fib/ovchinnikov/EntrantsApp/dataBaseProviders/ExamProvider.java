@@ -69,4 +69,15 @@ public class ExamProvider implements IDataBaseProvider<Exam> {
 
         return !exams.contains(object);
     }
+
+    /**
+     * Получение экзамена по предмету.
+     * @param subject предмет.
+     * @return экзамен.
+     */
+    public Optional<Exam> getBySubject(String subject) {
+        return exams.stream()
+                .filter(exam -> exam.getSubject().equals(subject))
+                .findAny();
+    }
 }
