@@ -21,7 +21,7 @@ public class EntrantExamMapProvider implements IDataBaseProvider<EntrantExamMap>
      * Список связей между абитуриентоми и экзаменоми.
      */
     @Getter(AccessLevel.PUBLIC)
-    private ArrayList<EntrantExamMap> entrantExamMap = new ArrayList<>();
+    private final ArrayList<EntrantExamMap> entrantExamMap = new ArrayList<>();
 
     /**
      * Получение связи.
@@ -112,6 +112,10 @@ public class EntrantExamMapProvider implements IDataBaseProvider<EntrantExamMap>
      * @return список экзаменов.
      */
     public ArrayList<Exam> getExamsByEntrant(Entrant entrant) {
+        if (entrant == null) {
+            throw new NullPointerException("Абитуриент не определён.");
+        }
+
         var foundExams = new ArrayList<Exam>();
 
         var foundExamsIds = entrantExamMap.stream()
@@ -136,6 +140,10 @@ public class EntrantExamMapProvider implements IDataBaseProvider<EntrantExamMap>
      * @return список абитуриентов.
      */
     public ArrayList<Entrant> getEntrantsByExam(Exam exam) {
+        if (exam == null) {
+            throw new NullPointerException("Экзамен не определён.");
+        }
+
         var foundEntrants = new ArrayList<Entrant>();
 
         var foundEntrantsIds = entrantExamMap.stream()
