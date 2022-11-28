@@ -1,3 +1,8 @@
-<header th:fragment="header">
-  Выбранный header
+<header th:fragment="header" >
+  <ul>
+    <li style="display: inline-block"><a th:href="@{/}">Домашняя страница</a></li>
+    <li style="display: inline-block"><a th:href="@{/entrants}">Список абитуриентов</a></li>
+    <li style="display: inline-block"><a th:href="@{/exams}">Список экзаменов</a></li>
+  </ul>
 </header>
+
