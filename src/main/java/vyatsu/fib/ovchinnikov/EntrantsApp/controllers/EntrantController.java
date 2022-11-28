@@ -1,9 +1,13 @@
 package vyatsu.fib.ovchinnikov.EntrantsApp.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.server.ResponseStatusException;
 import vyatsu.fib.ovchinnikov.EntrantsApp.dataBaseProviders.EntrantExamMapProvider;
 import vyatsu.fib.ovchinnikov.EntrantsApp.dataBaseProviders.EntrantProvider;
 import vyatsu.fib.ovchinnikov.EntrantsApp.dataBaseProviders.ExamProvider;
@@ -85,4 +89,49 @@ public class EntrantController {
 
         return "entrant";
     }
+
+    /**
+     * Добавление нового абитуриента.
+     * @param model модель.
+     * @return форма для заполнения.
+     */
+    @GetMapping("/addEntrant")
+    public String addingEntrant(Model model) {
+        model.addAttribute("title","Добавление абитуриента");
+
+        var entrant = new Entrant();
+
+        model.addAttribute("entrant", entrant);
+
+        model.addAttribute("amount",  entrantProvider.getEntrantsAmount());
+
+        return "addEntrant";
+    }
+
+    /**
+     * Добавление нового абитуриента.
+     * @param entrant абитуриент.
+     * @param model модель.
+     * @return название html страницы.
+     */
+    @PostMapping("/addEntrant")
+    public String addingEntrant(@ModelAttribute Entrant entrant, Model model) {
+        model.addAttribute("entrant", entrant);
+
+        try {
+            var savingStatus = entrantProvider.save(entrant);
+
+            if (!savingStatus) {
+                throw new Exception("Возникли ошибки при добавлении абитуриента в базу данных.");
+            }
+        }
+        catch (Exception ex) {
+            System.out.println(Arrays.toString(ex.getStackTrace()));
+
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
+        }
+
+        return "redirect:/entrants";
+    }
+
 }
