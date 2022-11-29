@@ -13,12 +13,12 @@ import java.sql.SQLException;
 public class H2Connection {
 
     @Getter(AccessLevel.PUBLIC)
-    private static final String JDBC_URL = "jdbc:h2:mem:testdb";
+    private static final String JDBC_URL = "jdbc:h2:E:\\3 курс\\Firstpart\\java\\EntrantsApp\\db\\University";
 
     @Getter(AccessLevel.PUBLIC)
-    private static final String USER = "sa";
+    private static final String USER = "test";
 
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = "test";
 
     @Getter(AccessLevel.PUBLIC)
     private static final String DRIVER_CLASS = "org.h2.Driver";
@@ -59,6 +59,7 @@ public class H2Connection {
      */
     private H2Connection() throws ClassNotFoundException, SQLException {
         Class.forName(DRIVER_CLASS);
+
         connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
     }
 
