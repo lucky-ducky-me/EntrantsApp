@@ -134,6 +134,10 @@ public class EntrantController {
             , Model model) {
         model.addAttribute("entrant", entrant);
 
+        var examFirstWasSaved = false;
+        var examSecondWasSaved = false;
+        var examThirdWasSaved = false;
+
         try {
             var savingStatus = entrantProvider.save(entrant);
 
@@ -141,28 +145,31 @@ public class EntrantController {
                 throw new Exception("Возникли ошибки при добавлении абитуриента в базу данных.");
             }
 
-            var examFounded = examProvider.getBySubject(exams.getExams().get(0).getSubject().toLowerCase());
+            var examFounded = examProvider.getBySubject(exams.getExams().get(0).getSubject());
 
             if (examFounded.isEmpty()) {
                 examProvider.save(exams.getExams().get(0));
+                examFirstWasSaved = true;
             }
             else {
                 exams.getExams().set(0, examFounded.get());
             }
 
-            examFounded = examProvider.getBySubject(exams.getExams().get(1).getSubject().toLowerCase());
+            examFounded = examProvider.getBySubject(exams.getExams().get(1).getSubject());
 
             if (examFounded.isEmpty()) {
                 examProvider.save(exams.getExams().get(1));
+                examSecondWasSaved = true;
             }
             else {
                 exams.getExams().set(1, examFounded.get());
             }
 
-            examFounded = examProvider.getBySubject(exams.getExams().get(2).getSubject().toLowerCase());
+            examFounded = examProvider.getBySubject(exams.getExams().get(2).getSubject());
 
             if (examFounded.isEmpty()) {
                 examProvider.save(exams.getExams().get(2));
+                examThirdWasSaved = true;
             }
             else {
                 exams.getExams().set(2, examFounded.get());
@@ -189,6 +196,20 @@ public class EntrantController {
         }
         catch (Exception ex) {
             System.out.println(Arrays.toString(ex.getStackTrace()));
+
+            entrantProvider.delete(entrant);
+
+            if (examFirstWasSaved) {
+                examProvider.delete(exams.getExams().get(0));
+            }
+
+            if (examSecondWasSaved) {
+                examProvider.delete(exams.getExams().get(1));
+            }
+
+            if (examThirdWasSaved) {
+                examProvider.delete(exams.getExams().get(2));
+            }
 
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
         }
