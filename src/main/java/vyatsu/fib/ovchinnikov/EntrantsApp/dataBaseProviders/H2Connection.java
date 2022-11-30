@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class H2Connection {
 
     @Getter(AccessLevel.PUBLIC)
-    private static final String JDBC_URL = "jdbc:h2:mem:UniversityDb";
+    private static final String JDBC_URL = "jdbc:h2:E:\\3 курс\\Firstpart\\java\\EntrantsApp\\DATABASE;FILE_LOCK=NO";
 
     @Getter(AccessLevel.PUBLIC)
     private static final String USER = "test";
